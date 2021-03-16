@@ -1,0 +1,85 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+    ThirdWindow:
+
+<MainWindow>:
+    name: "main"
+    butt: but1
+
+    Button:
+        id: but1
+        background_color: 1,1,1,0
+        on_release:
+            app.root.current = "second"
+            root.change_screen()
+            self.text='oki'
+
+        Image:
+            source: 'firstWindow.jpg'
+            allow_stretch: True
+
+            size: self.parent.size
+
+
+
+<SecondWindow>:
+    name: "second"
+    input_name: input
+    ScatterLayout:
+        Image:
+            source:'secondWindow.jpg'
+            allow_stretch: True
+            size: self.parent.size
+        BoxLayout:
+            orientation: 'vertical'
+            padding:10
+            spacing:50
+            Label:
+                size_hint: 1.2,1.2
+                text:" "
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 10
+                Label:
+                    text:""
+                    size_hint:1.5,1.5
+                TextInput:
+                    id: input
+                    font_name: 'OpenSans-SemiBold.ttf'
+                    hint_text:'Введите имя игрока: '
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    multiline: False
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+                    size_hint:0.55,0.5
+
+
+                Button:
+
+
+                    pos_hint: {'center_x':0.7, 'center_y':0.5}
+                    size_hint:0.15,0.5
+                    background_normal: 'button_play.png'
+                    background_down: 'button_play_on.png'
+
+                    on_release:
+                        root.save_name()
+                        app.root.current = "third"
+                        # root.manager.transition.direction = "right"
+
+
+
+<ThirdWindow>:
+    name: "third"
+    gamer_name: name
+    BoxLayout:
+        Label:
+            id: name
+            text: "GAme playground for "
+        Button:
+            text: "Say Hi"
+            on_release:
+                root.getName()
