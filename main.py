@@ -21,10 +21,22 @@ class MainWindow(Screen):
 
 
 class ThirdWindow(Screen):
+    sound = SoundLoader.load("volchok (online-audio-converter.com).wav")
+    tm = time
 
     def play(self):
         pass
 
+    def make_sound(self):
+        self.sound.play()
+
+    def stop_sound(self):
+        time.sleep(1)
+        self.sound.stop()
+
+    def anime_gif(self):
+        gif = self.gf
+        print(gif)
 
 class SecondWindow(Screen):
     pass

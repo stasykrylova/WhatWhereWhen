@@ -78,19 +78,25 @@ Manager:
     gamer_name: name
     on_pre_enter: root.play()
     ScatterLayout:
+
     Button:
         id: but1
         background_color: 1,1,1,0
-        on_release:
-            app.root.current = "second"
-
+        on_press:
+            root.sound.play()
+            gif.anim_delay = 0.05
+            gif._coreimage.anim_reset(True)
+            root.tm.sleep(2)
+            root.sound.stop()
 
 
         Image:
+            id: gif
             source: 'volchocTest.gif'
             allow_stretch: True
-
             size: self.parent.size
+            anim_delay: -1
+            anim_loop: 1
         BoxLayout:
             orientation: 'vertical'
 
