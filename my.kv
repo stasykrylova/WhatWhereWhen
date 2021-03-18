@@ -1,7 +1,8 @@
-WindowManager:
+Manager:
     MainWindow:
     SecondWindow:
     ThirdWindow:
+
 
 <MainWindow>:
     name: "main"
@@ -66,20 +67,34 @@ WindowManager:
                     background_down: 'button_play_on.png'
 
                     on_release:
-                        root.save_name()
+                        root.manager.screens[2].ids.name.text = root.ids.input.text if root.ids.input.text != "" else "Друзь"
                         app.root.current = "third"
-                        # root.manager.transition.direction = "right"
+                        # root.manager.transition = "RiseInTransition"
 
 
 
 <ThirdWindow>:
     name: "third"
     gamer_name: name
-    BoxLayout:
-        Label:
-            id: name
-            text: "GAme playground for "
-        Button:
-            text: "Say Hi"
-            on_release:
-                root.getName()
+    on_pre_enter: root.play()
+    ScatterLayout:
+    Button:
+        id: but1
+        background_color: 1,1,1,0
+        on_release:
+            app.root.current = "second"
+
+
+
+        Image:
+            source: 'volchocTest.gif'
+            allow_stretch: True
+
+            size: self.parent.size
+        BoxLayout:
+            orientation: 'vertical'
+
+            Label:
+                id: name
+                text: "Game playground for "
+
