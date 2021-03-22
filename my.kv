@@ -2,7 +2,7 @@ Manager:
     MainWindow:
     SecondWindow:
     ThirdWindow:
-
+    QuestionWindow:
 
 <MainWindow>:
     name: "main"
@@ -14,7 +14,6 @@ Manager:
         on_release:
             app.root.current = "second"
             root.change_screen()
-            self.text='oki'
 
         Image:
             source: 'firstWindow.jpg'
@@ -76,31 +75,42 @@ Manager:
 <ThirdWindow>:
     name: "third"
     gamer_name: name
-    on_pre_enter: root.play()
+    # on_pre_enter: root.play()
     ScatterLayout:
 
-    Button:
-        id: but1
-        background_color: 1,1,1,0
-        on_press:
-            root.sound.play()
-            gif.anim_delay = 0.05
-            gif._coreimage.anim_reset(True)
-            root.tm.sleep(2)
-            root.sound.stop()
+        Button:
+            id: but1
+            background_color: 1,1,1,0
+            on_press:
+                root.start_anim()
 
-
-        Image:
-            id: gif
-            source: 'volchocTest.gif'
-            allow_stretch: True
-            size: self.parent.size
-            anim_delay: -1
-            anim_loop: 1
+            Image:
+                id: gif
+                source: 'volchocTest.gif'
+                allow_stretch: True
+                size: self.parent.size
+                anim_delay: -1
+                anim_loop: 1
         BoxLayout:
             orientation: 'vertical'
+            Label:
+                text:'0:0'
+                markup: True
+                font_size: '64pt'
+                font_name: 'OpenSans-SemiBold.ttf'
 
+            Label:
+                text:''
+                size_hint: 0.9,1
             Label:
                 id: name
                 text: "Game playground for "
+                size_hint: 0.15,0.5
+                pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+                font_size: '20pt'
+                font_name: 'OpenSans-SemiBold.ttf'
 
+<QuestionWindow>:
+    name:"question"
+    Label:
+        text:"Here is question"

@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 import time
+from kivy.clock import Clock
 
 
 class MainWindow(Screen):
@@ -22,23 +23,28 @@ class MainWindow(Screen):
 
 class ThirdWindow(Screen):
     sound = SoundLoader.load("volchok (online-audio-converter.com).wav")
-    tm = time
+    cl = Clock
 
     def play(self):
         pass
 
-    def make_sound(self):
+    def change_screen(self):
+        self.manager.current = 'question'
+
+    def start_anim(self):
         self.sound.play()
+        gif = self.ids.gif
+        gif.anim_delay = 0.05
+        gif._coreimage.anim_reset(True)
+        self.cl.schedule_once(callback=lambda dt: self.sound.stop(), timeout=6)
+        self.cl.schedule_once(callback=lambda dt: self.change_screen(), timeout=6)
 
-    def stop_sound(self):
-        time.sleep(1)
-        self.sound.stop()
-
-    def anime_gif(self):
-        gif = self.gf
-        print(gif)
 
 class SecondWindow(Screen):
+    pass
+
+
+class QuestionWindow(Screen):
     pass
 
 
