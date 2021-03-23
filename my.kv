@@ -67,15 +67,17 @@ Manager:
 
                     on_release:
                         root.manager.screens[2].ids.name.text = root.ids.input.text if root.ids.input.text != "" else "Друзь"
+                        root.sound.play()
                         app.root.current = "third"
-                        # root.manager.transition = "RiseInTransition"
+
 
 
 
 <ThirdWindow>:
     name: "third"
     gamer_name: name
-    # on_pre_enter: root.play()
+    on_pre_enter: root.make_score()
+    score: count
     ScatterLayout:
 
         Button:
@@ -94,6 +96,7 @@ Manager:
         BoxLayout:
             orientation: 'vertical'
             Label:
+                id: count
                 text:'0:0'
                 markup: True
                 font_size: '64pt'
@@ -111,6 +114,26 @@ Manager:
                 font_name: 'OpenSans-SemiBold.ttf'
 
 <QuestionWindow>:
-    name:"question"
-    Label:
-        text:"Here is question"
+    name : "question"
+    on_pre_enter : root.ask_question()
+    question : quest
+    ScatterLayout:
+        Image:
+            source:'flor.png'
+            allow_stretch: True
+            size: self.parent.size
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                id: quest
+                text:"Here is question"
+            Button:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                size_hint:0.1,0.08
+                background_normal: 'button_play.png'
+                background_down: 'button_play_on.png'
+
+                on_release:
+                    root.btn_sound.play()
+                    root.check_correct()
+                    app.root.current = "third"

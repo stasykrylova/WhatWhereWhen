@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, RiseInTransition
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 import time
@@ -24,11 +24,17 @@ class MainWindow(Screen):
 class ThirdWindow(Screen):
     sound = SoundLoader.load("volchok (online-audio-converter.com).wav")
     cl = Clock
+    gamer_score = 0
+    viewer_score = 0
 
     def play(self):
         pass
 
+    def make_score(self):
+        self.score.text = str(self.gamer_score) + ':'+str(self.viewer_score)
+
     def change_screen(self):
+        self.manager.transition = RiseInTransition(duration=0.5)
         self.manager.current = 'question'
 
     def start_anim(self):
@@ -41,11 +47,18 @@ class ThirdWindow(Screen):
 
 
 class SecondWindow(Screen):
-    pass
+    sound = SoundLoader.load("button_sound.wav")
 
 
 class QuestionWindow(Screen):
-    pass
+    correctly = False
+    btn_sound = SoundLoader.load("button_sound.wav")
+
+    def check_correct(self):
+        pass
+
+    def ask_question(self):
+        self.question.text = "Here will be question func call"
 
 
 class Manager(ScreenManager):
