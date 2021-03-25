@@ -59,8 +59,7 @@ Manager:
 
                 Button:
 
-
-                    pos_hint: {'center_x':0.7, 'center_y':0.5}
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
                     size_hint:0.15,0.5
                     background_normal: 'button_play.png'
                     background_down: 'button_play_on.png'
@@ -117,23 +116,47 @@ Manager:
     name : "question"
     on_pre_enter : root.ask_question()
     question : quest
+    answer: ans_input
     ScatterLayout:
         Image:
-            source:'flor.png'
+            source:'questionWindow.jpg'
             allow_stretch: True
             size: self.parent.size
         BoxLayout:
             orientation: 'vertical'
+            padding:50
+            spacing:50
+
             Label:
                 id: quest
                 text:"Here is question"
-            Button:
-                pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-                size_hint:0.1,0.08
-                background_normal: 'button_play.png'
-                background_down: 'button_play_on.png'
+                font_size: '15pt'
+                font_name: 'OpenSans-SemiBold.ttf'
+                size_hint: 0.2, 2
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                color: 0,0,0,1
+            BoxLayout:
+                orientation: 'vertical'
+                padding:20
+                spacing:10
+                TextInput:
+                    id: ans_input
+                    font_name: 'OpenSans-SemiBold.ttf'
+                    hint_text:'Введите ответ: '
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'middle'
+                    multiline: False
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint:0.55,0.5
+                Button:
 
-                on_release:
-                    root.btn_sound.play()
-                    root.check_correct()
-                    app.root.current = "third"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                    size_hint:0.2,0.45
+                    background_normal: 'button_answer.png'
+                    background_down: 'button_answer_on.png'
+
+                    on_release:
+                        root.btn_sound.play()
+                        root.check_correct()
+

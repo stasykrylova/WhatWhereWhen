@@ -11,7 +11,6 @@ class MainWindow(Screen):
     sound.play()
 
     def change_screen(self):
-
         vol = 1
 
         for i in range(0, 20):
@@ -31,7 +30,7 @@ class ThirdWindow(Screen):
         pass
 
     def make_score(self):
-        self.score.text = str(self.gamer_score) + ':'+str(self.viewer_score)
+        self.score.text = str(self.gamer_score) + ':' + str(self.viewer_score)
 
     def change_screen(self):
         self.manager.transition = RiseInTransition(duration=0.5)
@@ -55,7 +54,38 @@ class QuestionWindow(Screen):
     btn_sound = SoundLoader.load("button_sound.wav")
 
     def check_correct(self):
-        pass
+        ans_gamer = self.answer.text
+        answer = "Calling func with answer"
+
+        if self.check(answer, ans_gamer):
+
+            self.correctly = True
+            ans_sound = SoundLoader.load("correct.wav")
+            self.question.text = "Правильный ответ!"
+        else:
+
+            ans_sound = SoundLoader.load("incorrect.wav")
+            self.question.text = "Неправильный ответ!"
+
+        ans_sound.play()
+        Clock.schedule_once(callback=lambda dt: self.change_screen(), timeout=1)
+
+    def change_screen(self):
+        self.manager.transition = RiseInTransition(duration=0.5)
+        self.manager.current = 'third'
+
+    @staticmethod
+    def check(str_a, str_b):
+
+        if str_a[0] == ' ':
+            str_a = str(list(str_a).pop(0))
+        if str_a[-1] == ' ':
+            str_a = str(list(str_a).pop(-1))
+
+        if str(" " + str_a.lower() + " ") in str(" " + str_b.lower() + " "):
+            return True
+        else:
+            return False
 
     def ask_question(self):
         self.question.text = "Here will be question func call"
