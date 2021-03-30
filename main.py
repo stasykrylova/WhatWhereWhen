@@ -65,12 +65,14 @@ class QuestionWindow(Screen):
         else:
 
             ans_sound = SoundLoader.load("incorrect.wav")
-            self.question.text = "Неправильный ответ!"
+            self.question.text = "Неверно! " + "\n" + "Правильный ответ: " + "\n" + answer
 
         ans_sound.play()
-        Clock.schedule_once(callback=lambda dt: self.change_screen(), timeout=1)
+        Clock.schedule_once(callback=lambda dt: self.change_screen(), timeout=4)
 
     def change_screen(self):
+        self.answer.text = ''
+        self.answer.hint_text = 'Введите ответ: '
         self.manager.transition = RiseInTransition(duration=0.5)
         self.manager.current = 'third'
 
@@ -89,6 +91,7 @@ class QuestionWindow(Screen):
 
     def ask_question(self):
         self.question.text = "Here will be question func call"
+        # maybe will be needed to parse the string by 3 words in line (using list and /n)
 
 
 class Manager(ScreenManager):
