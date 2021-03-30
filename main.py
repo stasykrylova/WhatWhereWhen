@@ -68,7 +68,7 @@ class QuestionWindow(Screen):
             self.question.text = "Неверно! " + "\n" + "Правильный ответ: " + "\n" + answer
 
         ans_sound.play()
-        Clock.schedule_once(callback=lambda dt: self.change_screen(), timeout=4)
+        Clock.schedule_once(callback=lambda dt: self.change_screen(), timeout=3)
 
     def change_screen(self):
         self.answer.text = ''
