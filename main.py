@@ -29,12 +29,30 @@ class ThirdWindow(Screen):
     def play(self):
         pass
 
+    def if_win(self):
+        if self.viewer_score == 6 or self.gamer_score == 6:
+            self.viewer_score = 0
+            self.gamer_score = 0
+            if self.gamer_score == 6:
+                self.cl.schedule_once(callback=lambda dt: self.win_game(), timeout=2)
+
+            elif self.viewer_score == 6:
+                self.cl.schedule_once(callback=lambda dt: self.loose_game(), timeout=2)
+
     def make_score(self):
         self.score.text = str(self.gamer_score) + ':' + str(self.viewer_score)
 
     def change_screen(self):
         self.manager.transition = RiseInTransition(duration=0.5)
         self.manager.current = 'question'
+
+    def loose_game(self):
+        self.manager.transition = RiseInTransition(duration=0.8)
+        self.manager.current = 'last_loose'
+
+    def win_game(self):
+        self.manager.transition = RiseInTransition(duration=0.8)
+        self.manager.current = 'last_win'
 
     def start_anim(self):
         self.sound.play()
@@ -92,6 +110,14 @@ class QuestionWindow(Screen):
     def ask_question(self):
         self.question.text = "Here will be question func call"
         # maybe will be needed to parse the string by 3 words in line (using list and /n)
+
+
+class LastWin(Screen):
+    pass
+
+
+class LastLoose(Screen):
+    pass
 
 
 class Manager(ScreenManager):

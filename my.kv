@@ -3,6 +3,8 @@ Manager:
     SecondWindow:
     ThirdWindow:
     QuestionWindow:
+    LastWin:
+    LastLoose:
 
 <MainWindow>:
     name: "main"
@@ -76,6 +78,7 @@ Manager:
     name: "third"
     gamer_name: name
     on_pre_enter: root.make_score()
+    on_pre_enter: root.if_win()
     score: count
     ScatterLayout:
 
@@ -159,7 +162,14 @@ Manager:
                     on_release:
                         root.btn_sound.play()
                         root.check_correct()
-                        root.manager.screens[2].gamer_score = 0 if not root.correctly else 1
-                        root.manager.screens[2].viewer_score = 0 if root.correctly else 1
+                        root.manager.screens[2].gamer_score = 0 if not root.correctly else root.manager.screens[2].gamer_score + 1
+                        root.manager.screens[2].viewer_score = 0 if root.correctly else root.manager.screens[2].viewer_score + 1
 
-
+<LastWin>:
+    name: "last_win"
+    Label:
+        text: "you wun the game"
+<LastLoose>:
+    name: "last_loose"
+    Label:
+        text: "you lose the game"
