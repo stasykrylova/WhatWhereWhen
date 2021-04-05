@@ -31,16 +31,28 @@ class ThirdWindow(Screen):
 
     def if_win(self):
         if self.viewer_score == 6 or self.gamer_score == 6:
-            self.viewer_score = 0
-            self.gamer_score = 0
+
             if self.gamer_score == 6:
                 self.cl.schedule_once(callback=lambda dt: self.win_game(), timeout=2)
+                print("okay")
 
             elif self.viewer_score == 6:
                 self.cl.schedule_once(callback=lambda dt: self.loose_game(), timeout=2)
+                print("okay")
+
+            self.viewer_score = 0
+            self.gamer_score = 0
+
+    # to do:
+#    make soundS at last screenS +
+#    make buttonS at last screenS +
+#    make images and switching to second page +
+#    make buttons inactive while playing +
+#    fixed a bug with score counting
 
     def make_score(self):
         self.score.text = str(self.gamer_score) + ':' + str(self.viewer_score)
+        self.but1.disabled = False
 
     def change_screen(self):
         self.manager.transition = RiseInTransition(duration=0.5)
@@ -59,6 +71,7 @@ class ThirdWindow(Screen):
         gif = self.ids.gif
         gif.anim_delay = 0.05
         gif._coreimage.anim_reset(True)
+        self.but1.disabled = True
         self.cl.schedule_once(callback=lambda dt: self.sound.stop(), timeout=6)
         self.cl.schedule_once(callback=lambda dt: self.change_screen(), timeout=6)
 
@@ -73,7 +86,9 @@ class QuestionWindow(Screen):
 
     def check_correct(self):
         ans_gamer = self.answer.text
-        answer = "Calling func with answer"
+        self.ans_btn.disabled = True
+        # Calling func with answer in answer var
+        answer = "ans"
 
         if self.check(answer, ans_gamer):
 
@@ -81,7 +96,7 @@ class QuestionWindow(Screen):
             ans_sound = SoundLoader.load("correct.wav")
             self.question.text = "Правильный ответ!"
         else:
-
+            self.correctly = False
             ans_sound = SoundLoader.load("incorrect.wav")
             self.question.text = "Неверно! " + "\n" + "Правильный ответ: " + "\n" + answer
 
@@ -109,15 +124,40 @@ class QuestionWindow(Screen):
 
     def ask_question(self):
         self.question.text = "Here will be question func call"
+        self.ans_btn.disabled = False
         # maybe will be needed to parse the string by 3 words in line (using list and /n)
 
 
 class LastWin(Screen):
-    pass
+    sound = SoundLoader.load("win.wav")
+
+    def play_sound(self):
+        self.sound.play()
+
+    def change_screen(self):
+        vol = 1
+
+        for i in range(0, 20):
+            self.sound.volume = vol
+            time.sleep(0.05)
+            vol -= 0.05
+        self.sound.stop()
 
 
 class LastLoose(Screen):
-    pass
+    sound = SoundLoader.load("win.wav")
+
+    def play_sound(self):
+        self.sound.play()
+
+    def change_screen(self):
+        vol = 1
+
+        for i in range(0, 20):
+            self.sound.volume = vol
+            time.sleep(0.05)
+            vol -= 0.05
+        self.sound.stop()
 
 
 class Manager(ScreenManager):

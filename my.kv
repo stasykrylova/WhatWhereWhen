@@ -79,6 +79,7 @@ Manager:
     gamer_name: name
     on_pre_enter: root.make_score()
     on_pre_enter: root.if_win()
+    but1: but1
     score: count
     ScatterLayout:
 
@@ -120,6 +121,7 @@ Manager:
     on_pre_enter : root.ask_question()
     question : quest
     answer: ans_input
+    ans_btn: ans_but
     ScatterLayout:
         Image:
             source:'questionWindow.jpg'
@@ -154,6 +156,7 @@ Manager:
                     size_hint:0.55,0.5
                 Button:
 
+                    id: ans_but
                     pos_hint: {'center_x': 0.5, 'center_y': 0.7}
                     size_hint:0.2,0.45
                     background_normal: 'button_answer.png'
@@ -162,14 +165,39 @@ Manager:
                     on_release:
                         root.btn_sound.play()
                         root.check_correct()
-                        root.manager.screens[2].gamer_score = 0 if not root.correctly else root.manager.screens[2].gamer_score + 1
-                        root.manager.screens[2].viewer_score = 0 if root.correctly else root.manager.screens[2].viewer_score + 1
+                        root.manager.screens[2].gamer_score = root.manager.screens[2].gamer_score if not root.correctly else root.manager.screens[2].gamer_score + 1
+                        root.manager.screens[2].viewer_score = root.manager.screens[2].viewer_score if root.correctly else root.manager.screens[2].viewer_score + 1
 
 <LastWin>:
     name: "last_win"
-    Label:
-        text: "you wun the game"
+    on_pre_enter : root.play_sound()
+    BoxLayout:
+        orientation: 'vertical'
+        padding:100
+        spacing:50
+        Label:
+            text: "you wun the game"
+        Button:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            size_hint:0.2,0.45
+            text: "Win"
+
+            on_release:
+                root.change_screen()
+
 <LastLoose>:
     name: "last_loose"
-    Label:
-        text: "you lose the game"
+    on_pre_enter : root.play_sound()
+    BoxLayout:
+        orientation: 'vertical'
+        padding:100
+        spacing:50
+        Label:
+            text: "you lose the game"
+        Button:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            size_hint:0.2,0.45
+            text: "Lose"
+
+            on_release:
+                root.change_screen()
