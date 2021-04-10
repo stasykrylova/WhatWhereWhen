@@ -91,30 +91,30 @@ Manager:
 
             Image:
                 id: gif
-                source: 'volchocTest.gif'
+                source: 'playground.gif'
                 allow_stretch: True
                 size: self.parent.size
                 anim_delay: -1
-                anim_loop: 1
+                anim_loop: 9
         BoxLayout:
             orientation: 'vertical'
+            spacing: 265
+            size: self.parent.size
             Label:
                 id: count
                 text:'0:0'
                 markup: True
                 font_size: '64pt'
                 font_name: 'OpenSans-SemiBold.ttf'
+                pos_hint: {'center_x':0.5, 'top': 1 }
+                size_hint:1,0.45
 
-            Label:
-                text:''
-                size_hint: 0.9,1
             Label:
                 id: name
                 text: "Game playground for "
-                size_hint: 0.15,0.5
-                pos_hint: {'center_x': 0.5, 'center_y': 0.1}
                 font_size: '20pt'
                 font_name: 'OpenSans-SemiBold.ttf'
+                valign: 'middle'
 
 <QuestionWindow>:
     name : "question"
@@ -171,33 +171,32 @@ Manager:
 <LastWin>:
     name: "last_win"
     on_pre_enter : root.play_sound()
-    BoxLayout:
-        orientation: 'vertical'
-        padding:100
-        spacing:50
-        Label:
-            text: "you wun the game"
-        Button:
-            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-            size_hint:0.2,0.45
-            text: "Win"
+    butt: but1
 
-            on_release:
-                root.change_screen()
+    Button:
+        id: but1
+        background_color: 1,1,1,0
+        on_release:
+            root.change_screen()
+            app.root.current = "second"
+        Image:
+            source: 'win_win.jpg'
+            allow_stretch: True
+            size: self.parent.size
+
 
 <LastLoose>:
     name: "last_loose"
     on_pre_enter : root.play_sound()
-    BoxLayout:
-        orientation: 'vertical'
-        padding:100
-        spacing:50
-        Label:
-            text: "you lose the game"
-        Button:
-            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-            size_hint:0.2,0.45
-            text: "Lose"
+    butt: but1
 
-            on_release:
-                root.change_screen()
+    Button:
+        id: but1
+        background_color: 1,1,1,0
+        on_release:
+            root.change_screen()
+            app.root.current = "second"
+        Image:
+            source: 'lose_win.jpg'
+            allow_stretch: True
+            size: self.parent.size

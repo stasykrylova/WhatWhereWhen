@@ -40,15 +40,15 @@ class ThirdWindow(Screen):
                 self.cl.schedule_once(callback=lambda dt: self.loose_game(), timeout=2)
                 print("okay")
 
-            self.viewer_score = 0
-            self.gamer_score = 0
+            self.cl.schedule_once(callback=lambda dt: self.update_score(), timeout=2)
 
-    # to do:
-#    make soundS at last screenS +
-#    make buttonS at last screenS +
-#    make images and switching to second page +
-#    make buttons inactive while playing +
-#    fixed a bug with score counting
+# to do:
+    # make images for two last pages
+    # make buttons(?)
+    # make notepad with Question
+    def update_score(self):
+        self.viewer_score = 0
+        self.gamer_score = 0
 
     def make_score(self):
         self.score.text = str(self.gamer_score) + ':' + str(self.viewer_score)
@@ -123,7 +123,8 @@ class QuestionWindow(Screen):
             return False
 
     def ask_question(self):
-        self.question.text = "Here will be question func call"
+        # Here will be question func call
+        self.question.text = " Please answer the question "
         self.ans_btn.disabled = False
         # maybe will be needed to parse the string by 3 words in line (using list and /n)
 
