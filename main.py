@@ -7,7 +7,7 @@ from kivy.clock import Clock
 
 
 class MainWindow(Screen):
-    sound = SoundLoader.load("meeting (online-audio-converter.com).wav")
+    sound = SoundLoader.load("start_sound.wav")
     sound.play()
 
     def change_screen(self):
@@ -21,7 +21,7 @@ class MainWindow(Screen):
 
 
 class ThirdWindow(Screen):
-    sound = SoundLoader.load("volchok (online-audio-converter.com).wav")
+    sound = SoundLoader.load("game_sound.wav")
     cl = Clock
     gamer_score = 0
     viewer_score = 0
@@ -34,17 +34,14 @@ class ThirdWindow(Screen):
 
             if self.gamer_score == 6:
                 self.cl.schedule_once(callback=lambda dt: self.win_game(), timeout=2)
-                print("okay")
 
             elif self.viewer_score == 6:
                 self.cl.schedule_once(callback=lambda dt: self.loose_game(), timeout=2)
-                print("okay")
 
             self.cl.schedule_once(callback=lambda dt: self.update_score(), timeout=2)
 
 # to do:
-    # make images for two last pages
-    # make buttons(?)
+    # server part
     # make notepad with Question
     def update_score(self):
         self.viewer_score = 0
@@ -93,11 +90,11 @@ class QuestionWindow(Screen):
         if self.check(answer, ans_gamer):
 
             self.correctly = True
-            ans_sound = SoundLoader.load("correct.wav")
+            ans_sound = SoundLoader.load("correct_sound.wav")
             self.question.text = "Правильный ответ!"
         else:
             self.correctly = False
-            ans_sound = SoundLoader.load("incorrect.wav")
+            ans_sound = SoundLoader.load("incorrect_sound.wav")
             self.question.text = "Неверно! " + "\n" + "Правильный ответ: " + "\n" + answer
 
         ans_sound.play()
@@ -130,7 +127,7 @@ class QuestionWindow(Screen):
 
 
 class LastWin(Screen):
-    sound = SoundLoader.load("win.wav")
+    sound = SoundLoader.load("end_sound.wav")
 
     def play_sound(self):
         self.sound.play()
@@ -146,7 +143,7 @@ class LastWin(Screen):
 
 
 class LastLoose(Screen):
-    sound = SoundLoader.load("win.wav")
+    sound = SoundLoader.load("end_sound.wav")
 
     def play_sound(self):
         self.sound.play()
@@ -170,6 +167,8 @@ kv = Builder.load_file("my.kv")
 
 class MainApp(App):
     def build(self):
+        self.icon = 'icon.png'
+        self.title = 'What?Where?When?'
         return kv
 
 
