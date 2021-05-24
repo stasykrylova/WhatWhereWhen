@@ -4,6 +4,10 @@ from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 import time
 from kivy.clock import Clock
+from QuestionAsking import QuestionAnswer
+
+
+grid = QuestionAnswer()
 
 
 class MainWindow(Screen):
@@ -25,6 +29,8 @@ class ThirdWindow(Screen):
     cl = Clock
     gamer_score = 0
     viewer_score = 0
+    question = ""
+    answer = ""
 
     def play(self):
         pass
@@ -69,6 +75,8 @@ class ThirdWindow(Screen):
         gif.anim_delay = 0.05
         gif._coreimage.anim_reset(True)
         self.but1.disabled = True
+        grid.predict()
+        print(self.question, self.answer)
         self.cl.schedule_once(callback=lambda dt: self.sound.stop(), timeout=6)
         self.cl.schedule_once(callback=lambda dt: self.change_screen(), timeout=6)
 
@@ -85,7 +93,7 @@ class QuestionWindow(Screen):
         ans_gamer = self.answer.text
         self.ans_btn.disabled = True
         # Calling func with answer in answer var
-        answer = "ans"
+        answer = grid.get_answer()
 
         if self.check(answer, ans_gamer):
 
@@ -121,9 +129,8 @@ class QuestionWindow(Screen):
 
     def ask_question(self):
         # Here will be question func call
-        self.question.text = " Please answer the question "
+        self.question.text = grid.get_question()
         self.ans_btn.disabled = False
-        # maybe will be needed to parse the string by 3 words in line (using list and /n)
 
 
 class LastWin(Screen):
