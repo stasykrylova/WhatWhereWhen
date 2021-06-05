@@ -24,3 +24,8 @@
 Тестирование и устранение багов - до конца срока (конец мая- начало июня)
 
 
+Участники проекта : Крылова А.А, Корсакова Е.М.
+
+Все зависимости указаны в файле requirements.txt
+
+Презентация проекта по ссылке:https://docs.google.com/presentation/d/11rulU1ayFSBIw2TTuaXZagaNO9VCleItTohOfvsjfBA/edit#slide=id.p 
