@@ -28,4 +28,4 @@
 
 Все зависимости указаны в файле requirements.txt
 
-Презентация проекта по ссылке:https://docs.google.com/presentation/d/11rulU1ayFSBIw2TTuaXZagaNO9VCleItTohOfvsjfBA/edit#slide=id.p 
+Презентация проекта по ссылке: https://docs.google.com/presentation/d/11rulU1ayFSBIw2TTuaXZagaNO9VCleItTohOfvsjfBA/edit#slide=id.p 
