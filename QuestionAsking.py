@@ -56,6 +56,8 @@ class QuestionAnswer:
         text = text.split("== References", 1)[0]
         text = text.split("== Notes", 1)[0]
         text = text.split("== See also", 1)[0]
+        text += " [SEP] "
+        text += title
         print(text)
         return text
 
